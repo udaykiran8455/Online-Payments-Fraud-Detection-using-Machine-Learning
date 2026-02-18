@@ -1,0 +1,19 @@
+import pickle
+import joblib
+
+# Example: Save a trained model or data structure
+# This is a placeholder - replace with your actual model/data
+sample_data = {
+    'model': None,  # Replace with your trained model
+    'features': ['amount', 'merchant_id', 'timestamp'],
+    'threshold': 0.5
+}
+
+# Save to pickle file
+with open('payments.pkl', 'wb') as f:
+    pickle.dump(sample_data, f)
+
+# Or using joblib (often better for ML models)
+joblib.dump(sample_data, 'payments.pkl')
+
+print("Pickle file created successfully")

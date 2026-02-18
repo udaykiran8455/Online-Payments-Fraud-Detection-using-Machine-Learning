@@ -1,0 +1,17 @@
+import pickle
+import pandas as pd
+
+# Create a sample payments dataset
+data = {
+    'transaction_id': [1, 2, 3, 4, 5],
+    'amount': [100.50, 250.00, 45.99, 1200.00, 89.50],
+    'is_fraud': [0, 0, 0, 1, 0]
+}
+
+df = pd.DataFrame(data)
+
+# Save to pickle file
+with open(r'C:/Users/kmadh/OneDrive/Desktop/Online Payments Fraud Detection using Machine Learning/training/payments.pkl', 'wb') as f:
+    pickle.dump(df, f)
+
+print("Pickle file created successfully!")

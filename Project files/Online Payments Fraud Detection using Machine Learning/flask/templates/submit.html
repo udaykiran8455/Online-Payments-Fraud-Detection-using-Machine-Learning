@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Payments Fraud Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #a8d8f0 0%, #c3e7f5 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #003d6b;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-home {
+            background-color: #4a90e2;
+            color: white;
+        }
+        
+        .btn-home:hover {
+            background-color: #357abd;
+            transform: translateY(-2px);
+        }
+        
+        .btn-predict {
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .btn-predict:hover {
+            background-color: #1a252f;
+            transform: translateY(-2px);
+        }
+        
+        .content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .result-section {
+            flex: 1;
+        }
+        
+        .result-text {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .fraud-result {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d9534f;
+            background-color: #f5f5f5;
+            padding: 15px 20px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        .not-fraud-result {
+            font-size: 24px;
+            font-weight: bold;
+            color: #5cb85c;
+            background-color: #f5f5f5;
+            padding: 15px 20px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        .illustration {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .illustration img {
+            max-width: 100%;
+            height: auto;
+            max-height: 500px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .button-group {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Online Payments Fraud Detection</h1>
+            <div class="button-group">
+                <button class="btn-home" onclick="window.location.href='/'">Home</button>
+                <button class="btn-predict" onclick="window.location.href='/predict'">Predict</button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="result-section">
+                <p class="result-text">The predicted fraud for the online payment is</p>
+                
+                <!-- Display when NOT FRAUD -->
+                <div id="notFraudResult">
+                    <span class="not-fraud-result">['is not Fraud']</span>
+                </div>
+                
+                <!-- Display when FRAUD -->
+                <div id="fraudResult" style="display:none;">
+                    <span class="fraud-result">['is Fraud']</span>
+                </div>
+            </div>
+            
+            <div class="illustration">
+                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
+                    <!-- Background shapes -->
+                    <circle cx="100" cy="150" r="40" fill="#a8d8f0" opacity="0.3"/>
+                    <circle cx="320" cy="100" r="30" fill="#a8d8f0" opacity="0.3"/>
+                    <circle cx="350" cy="280" r="35" fill="#a8d8f0" opacity="0.3"/>
+                    
+                    <!-- Lock icon -->
+                    <rect x="280" y="80" width="60" height="70" rx="10" fill="#7eb3d4" opacity="0.6"/>
+                    <circle cx="310" cy="95" r="8" fill="#5a8fb0"/>
+                    <path d="M 310 110 L 310 130" stroke="#5a8fb0" stroke-width="3" fill="none"/>
+                    
+                    <!-- Hacker figure -->
+                    <ellipse cx="200" cy="180" rx="50" ry="60" fill="#4a6fa5"/>
+                    <circle cx="200" cy="120" r="35" fill="#667a96"/>
+                    
+                    <!-- Mask -->
+                    <ellipse cx="200" cy="130" rx="25" ry="30" fill="#2c3e50"/>
+                    <circle cx="185" cy="120" r="6" fill="#ffffff"/>
+                    <circle cx="215" cy="120" r="6" fill="#ffffff"/>
+                    <path d="M 200 130 L 200 145" stroke="#ffffff" stroke-width="2"/>
+                    
+                    <!-- Credit Card -->
+                    <rect x="160" y="210" width="80" height="50" rx="5" fill="#7eb3d4"/>
+                    <rect x="165" y="215" width="20" height="12" fill="#ffd54f"/>
+                    <text x="195" y="240" font-size="12" fill="#ffffff" text-anchor="middle">****</text>
+                    <circle cx="240" cy="235" r="8" fill="#e74c3c"/>
+                    <circle cx="235" cy="235" r="8" fill="#f39c12" opacity="0.7"/>
+                    
+                    <!-- Security icons -->
+                    <circle cx="100" cy="80" r="20" fill="#5a8fb0" opacity="0.7"/>
+                    <path d="M 95 80 L 105 80 M 100 75 L 100 85" stroke="#ffffff" stroke-width="2"/>
+                    
+                    <!-- Magnifying glass -->
+                    <circle cx="340" cy="220" r="18" fill="none" stroke="#5a8fb0" stroke-width="3"/>
+                    <path d="M 355 235 L 365 245" stroke="#5a8fb0" stroke-width="3"/>
+                    
+                    <!-- Gear -->
+                    <circle cx="110" cy="250" r="15" fill="none" stroke="#7eb3d4" stroke-width="2"/>
+                    <circle cx="110" cy="250" r="8" fill="none" stroke="#7eb3d4" stroke-width="2"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // This function will be called from Flask to display fraud or not fraud
+        function showFraudResult(isFraud) {
+            const fraudResult = document.getElementById('fraudResult');
+            const notFraudResult = document.getElementById('notFraudResult');
+            
+            if (isFraud) {
+                fraudResult.style.display = 'block';
+                notFraudResult.style.display = 'none';
+            } else {
+                fraudResult.style.display = 'none';
+                notFraudResult.style.display = 'block';
+            }
+        }
+        
+        // Default view (show 'not fraud')
+        showFraudResult(false);
+    </script>
+</body>
+</html>

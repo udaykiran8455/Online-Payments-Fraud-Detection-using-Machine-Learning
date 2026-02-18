@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Payments Fraud Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #a8d8ff 0%, #c5e1f5 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            color: #1a3a52;
+            font-weight: 600;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            background-color: #2c7fa5;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-buttons button:hover {
+            background-color: #1e5a7a;
+        }
+        
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a3a52;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #f5f5f5;
+            color: #666;
+        }
+        
+        .form-group input::placeholder {
+            color: #999;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            background-color: #fff;
+            border-color: #2c7fa5;
+        }
+        
+        .predict-btn {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .predict-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .image-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-buttons {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Online Payments Fraud Detection</h1>
+            <div class="nav-buttons">
+                <button>Home</button>
+                <button>Predict</button>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <form method="POST" action="/predict">
+                <div class="form-group">
+                    <label for="step">Step</label>
+                    <input type="text" id="step" name="step" placeholder="step  represents a unit of time where 1 step equals 1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <input type="text" id="type" name="type" placeholder="type of online transaction" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="text" id="amount" name="amount" placeholder="the amount of the transaction" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="oldbalanceOrg">OldbalanceOrg</label>
+                    <input type="text" id="oldbalanceOrg" name="oldbalanceOrg" placeholder="balance before the transaction" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newbalanceOrig">NewbalanceOrig</label>
+                    <input type="text" id="newbalanceOrig" name="newbalanceOrig" placeholder="balance after the transaction" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="oldbalanceDest">OldbalanceDest</label>
+                    <input type="text" id="oldbalanceDest" name="oldbalanceDest" placeholder="initial balance of recipient before the transaction" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newbalanceDest">NewbalanceDest</label>
+                    <input type="text" id="newbalanceDest" name="newbalanceDest" placeholder="the new balance of recipient after the transaction" required>
+                </div>
+                
+                <button type="submit" class="predict-btn">Predict</button>
+            </form>
+        </div>
+        
+        <div class="image-section">
+            <img src="https://via.placeholder.com/400x400" alt="Fraud Detection Security Illustration">
+        </div>
+    </div>
+</body>
+</html>
